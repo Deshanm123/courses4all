@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Courses4All.Interfaces;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Courses4All.Data.Entities
 {
-    public class MediaType
+    public class MediaType : IPrimaryProperties
     {
         public int Id { get; set; }
 
@@ -15,7 +16,6 @@ namespace Courses4All.Data.Entities
 
         [Required]
         public string CoverImage {  get; set; }
-
 
 
         [ForeignKey("MediaTypeId")]

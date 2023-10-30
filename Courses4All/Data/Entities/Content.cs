@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Courses4All.Data.Entities
 {
@@ -10,7 +11,14 @@ namespace Courses4All.Data.Entities
         [Required]
         public string HtmlContent { get;set; }
         public string VideoLink { get; set; }
-        //not vcategory items since its one to one relationship
+        
+        //not category items since its one to one relationship
         public CategoryItem CategoryItem { get; set; }
+        
+        [NotMapped]
+        public int Category_Item_Id { get; set; }
+
+        [NotMapped]
+        public int CategoryId { get;set; }
     }
 }

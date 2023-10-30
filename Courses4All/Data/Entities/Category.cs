@@ -25,8 +25,8 @@ namespace Courses4All.Data.Entities
         [ForeignKey("CategoryId")]
         public ICollection<CategoryItem> CategoryItems { get; set; }
 
-        //[ForeignKey("CategoryId")]
-        [ForeignKey("UserCategoryId")]
+        [ForeignKey("CategoryId")]
+        //[ForeignKey("UserCategoryId")]
         public virtual ICollection<UserCategory> UserCategories { get; set; }
 
     }

@@ -25,7 +25,12 @@ namespace Courses4All.Areas.Admin.Controllers
         // GET: Admin/CategoryItem
         public async Task<IActionResult> Index(int categoryId)
         {
-            List<CategoryItem> categoryItemsList = await  (from catItem in _context.CategoryItems
+            List<CategoryItem> categoryItemsList = await  (
+                                                   from catItem in _context.CategoryItems 
+                                                   join contentItem in _context.Content
+                                                   on  catItem.Id equals contentItem.CategoryItem.Id
+                                                   into groupJoin
+                                                   from subContent in groupJoin.DefaultIfEmpty()
                                                    where catItem.CategoryId == categoryId
                                                    select new CategoryItem
                                                    {
@@ -34,7 +39,8 @@ namespace Courses4All.Areas.Admin.Controllers
                                                        Description = catItem.Description,
                                                        DateTimeItemReleased = catItem.DateTimeItemReleased,
                                                        MediaTypeId = catItem.MediaTypeId,
-                                                       CategoryId = catItem.CategoryId
+                                                       CategoryId = catItem.CategoryId,
+                                                       ContentId = (subContent != null) ? subContent.Id : 0 
                                                    }
                                                    ).ToListAsync();
              ViewBag.CategoryId = categoryId; 

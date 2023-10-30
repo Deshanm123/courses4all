@@ -41,6 +41,16 @@
                     <a asp-action="Details" asp-route-categoryItemId="@item.Id">Details</a> |
                     <a asp-action="Delete" asp-route-categoryItemId="@item.Id">Delete</a>
             </td>
+            <td>
+                    @if(item.ContentId == 0)
+                    {
+                        <a asp-controller ="Content" asp-action="Create" asp-route-Category_Item_Id ="@item.Id" asp-route-CategoryId ="@ViewBag.categoryId">Create Content</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Content" asp-action="Edit" asp-route-Category_Item_Id="@item.Id" asp-route-CategoryId="@ViewBag.categoryId"> Edit Content</a>
+                    }
+                    </td>
         </tr>
 }
     </tbody>

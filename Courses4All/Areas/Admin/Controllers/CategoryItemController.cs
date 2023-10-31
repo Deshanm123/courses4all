@@ -92,6 +92,8 @@ namespace Courses4All.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index), new { categoryId  = categoryItem.CategoryId});
             }
             //CategoryItem?categoryId=1
+            List<MediaType> mediaTypes = await _context.MediaTypes.ToListAsync();
+            categoryItem.MediaTypes = mediaTypes.ConvertToSelectList(categoryItem.MediaTypeId);
             return View(categoryItem);
         }
 

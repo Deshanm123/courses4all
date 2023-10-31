@@ -9,6 +9,8 @@ namespace Courses4All.Data.Entities
         [Required]
         public string Title {  get; set; }
         [Required]
+
+        [Display(Name = "HTML Content")]
         public string HtmlContent { get;set; }
         public string VideoLink { get; set; }
         

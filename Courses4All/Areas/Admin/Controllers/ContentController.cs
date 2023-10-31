@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Courses4All.Data;
 using Courses4All.Data.Entities;
 
-namespace Courses4All.Areas.Admin
+namespace Courses4All.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ContentController : Controller
@@ -21,7 +21,7 @@ namespace Courses4All.Areas.Admin
         }
 
         // GET: Admin/Content/Create
-        public IActionResult Create(int Category_Item_Id ,int CategoryId)
+        public IActionResult Create(int Category_Item_Id, int CategoryId)
         {
             Content content = new Content()
             {
@@ -43,7 +43,7 @@ namespace Courses4All.Areas.Admin
                 content.CategoryItem = _context.CategoryItems.FirstOrDefault(i => i.Id == content.Category_Item_Id);
                 _context.Add(content);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index","CategoryItem", new {categoryId = content.CategoryId});
+                return RedirectToAction("Index", "CategoryItem", new { categoryId = content.CategoryId });
             }
             return View(content);
         }
@@ -55,7 +55,7 @@ namespace Courses4All.Areas.Admin
             {
                 return NotFound();
             }
-            
+
             var content = await _context.Content.FirstOrDefaultAsync(item => item.CategoryItem.Id == Category_Item_Id);
             content.CategoryId = CategoryId;
             content.Category_Item_Id = Category_Item_Id;
@@ -96,7 +96,7 @@ namespace Courses4All.Areas.Admin
                         throw;
                     }
                 }
-                return RedirectToAction("Index","CategoryItem",new { categoryId = content.CategoryId });
+                return RedirectToAction("Index", "CategoryItem", new { categoryId = content.CategoryId });
             }
             return View(content);
         }

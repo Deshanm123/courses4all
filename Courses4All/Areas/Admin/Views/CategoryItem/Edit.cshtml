@@ -25,12 +25,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control" rows="2" /></textarea>
+                <textarea asp-for="Description" class="form-control" rows="2" ></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DateTimeItemReleased" class="control-label"></label>
-                <input asp-for="DateTimeItemReleased" class="form-control" />
+                <input type="text" name="DateTimeItemReleased" id="DateTimeItemReleased" value="@Model.DateTimeItemReleased.ToString("dd/MM/yyyy")" class="form-control" />
                 <span asp-validation-for="DateTimeItemReleased" class="text-danger"></span>
             </div>
          
@@ -53,5 +53,6 @@
 </div>
 
 @section Scripts {
+    <script src="~/js/datepicker-custom.js"></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

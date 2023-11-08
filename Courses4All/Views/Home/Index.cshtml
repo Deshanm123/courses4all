@@ -6,3 +6,16 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<div class="modal fade" id="loginModalCenter" tabindex="-1" role="dialog" aria-labelledby="loginModalCenterTitle">
+    <partial name="_UserLoginPartial" />
+</div>
+
+@section Scripts{
+
+    <script src="~/js/user-login.js"></script> 
+    @{
+        //before submitting/click thek login field validations are occur with out refreshing the page 
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

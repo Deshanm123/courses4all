@@ -12,6 +12,7 @@ namespace Courses4All.Data.Entities
 
         [Display(Name = "HTML Content")]
         public string HtmlContent { get;set; }
+        [Display(Name ="Link for the Video")]
         public string VideoLink { get; set; }
         
         //not category items since its one to one relationship

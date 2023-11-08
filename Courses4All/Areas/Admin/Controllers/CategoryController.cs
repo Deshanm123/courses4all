@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Courses4All.Data;
 using Courses4All.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Courses4All.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Administrator")]
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _context;

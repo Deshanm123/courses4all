@@ -14,10 +14,10 @@ namespace Courses4All.Data.Entities
         public string Title { get; set; }
         [Required]
         public string Description { get; set; }
+
         [Required]
         [Display(Name ="Cover Image")]
         public string CoverImageUrl { get; set; }
-
 
 
         //This referencing for the foreign key.

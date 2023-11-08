@@ -15,6 +15,7 @@ namespace Courses4All.Data.Entities
         public string Title { get;set; }
 
         [Required]
+        [Display(Name ="Location for Cover Image")]
         public string CoverImage {  get; set; }
 
 

@@ -1,19 +1,36 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManger;
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@if (SignInManger.IsSignedIn(User))
+{
+    <div class="text-center">
+        <h1 class="display-4">PLEASE LOG IN</h1>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>
+}
 
 <div class="modal fade" id="loginModalCenter" tabindex="-1" role="dialog" aria-labelledby="loginModalCenterTitle">
     <partial name="_UserLoginPartial" />
 </div>
 
+<div class="modal fade" id="RegistrationModalCenter" tabindex="-1" role="dialog" aria-labelledby="RegistrationModalCenterTitle">
+    <partial name="_UserRegistrationPartial" />
+</div>
+
 @section Scripts{
 
     <script src="~/js/user-login.js"></script> 
+    <script src="~/js/user-register.js"></script>
     @{
         //before submitting/click thek login field validations are occur with out refreshing the page 
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

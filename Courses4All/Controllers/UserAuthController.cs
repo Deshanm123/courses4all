@@ -62,6 +62,38 @@ namespace Courses4All.Controllers
         }
 
 
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegisterUser(RegisterViewModel registerViewModel)
+        {
+            registerViewModel.RegistrationInValid = "true";
+            if (ModelState.IsValid)
+            {
+                ApplicationUser newUser = new ApplicationUser
+                {
+                    UserName = registerViewModel.Email,
+                    FirstName = registerViewModel.FirstName,
+                    LastName = registerViewModel.LastName,
+                    Address1 = registerViewModel.Address1,
+                    Address2 = registerViewModel.Address2,
+                    PostCode = registerViewModel.PostCode,
+                    PhoneNumber = registerViewModel.PhoneNumber
+
+                };
+                var result = await _userManager.CreateAsync(newUser,registerViewModel.Password);
+                if (result.Succeeded)
+                {
+                    registerViewModel.RegistrationInValid = "";
+                    //sign in user to the application
+                    await _signInManager.SignInAsync(newUser, isPersistent: false);
+                    return PartialView("_UserRegistrationPartial", registerViewModel);
+                }
+                ModelState.AddModelError("", "Registration Attempt Failed");
+            }
+            return PartialView("_UserRegistrationPartial", registerViewModel);
+        }
+
 
 
     }

@@ -1,0 +1,75 @@
+﻿@model Courses4All.Models.RegisterViewModel
+
+
+<div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registrationModalLabel">Register a new user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="userRegistrationForm" method="POST" asp-controller="UserAuth" asp-action="RegisterUser">
+                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="RegistrationInValid" />
+
+                 <div class="form-group">
+                    <label asp-for="@Model.Email">Email address</label>
+                    <input class="form-control" asp-for="@Model.Email">
+                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                </div>
+                 <div class="form-group">
+                    <label asp-for="@Model.Password">Password</label>
+                    <input class="form-control" asp-for="@Model.Password">
+                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                </div>
+                 <div class="form-group">
+                    <label asp-for="@Model.ConfirmPassword">Confirm Password</label>
+                    <input class="form-control" asp-for="@Model.ConfirmPassword">
+                    <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.FirstName">First Name</label>
+                    <input class="form-control" asp-for="@Model.FirstName">
+                    <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                </div>
+                 <div class="form-group">
+                    <label asp-for="@Model.LastName">Last Name</label>
+                    <input class="form-control" asp-for="@Model.LastName">
+                    <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Address1">Address Line 1</label>
+                    <input class="form-control" asp-for="@Model.Address1">
+                    <span asp-validation-for="@Model.Address1" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Address2">Address Line 2</label>
+                    <input class="form-control" asp-for="@Model.Address2">
+                    <span asp-validation-for="@Model.Address2" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.PostCode">Postal Code</label>
+                    <input class="form-control" asp-for="@Model.PostCode">
+                    <span asp-validation-for="@Model.PostCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.PhoneNumber">Phone Number</label>
+                    <input class="form-control" asp-for="@Model.PhoneNumber">
+                    <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="@Model.AcceptUserAgreement">
+                    <label asp-for="@Model.AcceptUserAgreement">Accept All User Terms and Agreements</label>
+                    <span asp-validation-for="@Model.AcceptUserAgreement" class="text-danger"></span>
+                </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button"  name="register" id="userRegisterBtn"class="btn btn-primary">Register</button>
+            </div>
+        </div>
+    </div>

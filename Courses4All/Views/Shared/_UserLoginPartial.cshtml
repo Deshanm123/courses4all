@@ -3,18 +3,19 @@
 <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="loginModalLongTitle">Modal title</h5>
+            <h5 class="modal-title" id="loginModalLongTitle">Login</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
 
         <div class="modal-body">
+            <div class="container" id="error-placeholder"></div>
             <form id="UserLoginForm" asp-Controller ="UserAuth" asp-action="Login">
                 
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="All" class="text-danger"></div>
 
-                <input type ="hidden" asp-for="LoginInvalid" />
+                <input type="hidden" asp-for="LoginInvalid" />
 
                 <div class=form-group-row>
                     <label asp-for="Email" class="col-md-4 col-form-label"></label>
@@ -34,7 +35,7 @@
                 </div>
 
                 <div class=form-group-row>
-                    <div class="col-md-8 offset-md-4">
+                    <div class="col-md-8 ">
                         <div class="form-check">
                             <input asp-for="RememberMe" class="form-check-input" />
                             <label asp-for="RememberMe" class="form-check-label"></label>

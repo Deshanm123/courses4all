@@ -69,3 +69,24 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+}
+
+ .popup img {
+      max-width: 30vw;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+  }
+
+.show-popup {
+    display: block;
+}

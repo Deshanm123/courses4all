@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using Courses4All.Interfaces;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Courses4All.Data.Entities
 {
-    public class Category
+    public class Category:IPrimaryProperties
     {
         public int Id { get; set; } 
 

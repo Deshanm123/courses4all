@@ -10,7 +10,7 @@ function reloadClientSideValidations() {
     var loginForm = $("#userLoginForm");
     $(loginForm).removeData("validator"); //The "validator" reference to jQuery Validation, which is a popular plugin for client-side form validation.
     $(loginForm).removeData("unobtrusiveValidation"); /// jQuery Unobtrusive Validation, which is used in ASP.NET MVC applications to enable client-side validation based on data annotation attributes.
-    $.validator.unobtrusive.parse(form); //line attempts to parse and initialize 
+    $.validator.unobtrusive.parse(loginForm); //line attempts to parse and initialize 
     
 }
 
@@ -26,7 +26,6 @@ function addLoginBtnEventListener() {
 
 function loginAction()
 {
-    debugger
     //When [ValidateAntiForgeryToke] is used is the User Auth Controller
     //this automatically generate a hidden field to store token value //inspect and see the login html
     // using this token and token stored in a cookie when user get logged in to the site
@@ -46,10 +45,11 @@ function loginAction()
             RememberMe: checkboxInput.checked
         },
         success: (data) => {
-            debugger;
             var parsed = $.parseHTML(data); //convert the string to a set of DOM nodes
-            var hasErrors = $(parsed).find("input[name='LoginInvalid']").Value == "true";
-            if (hasErrors == true) {
+            console.log(data);
+            var hasErrors = $(parsed).find("#LoginInvalid").val();
+            if (hasErrors == 'true') {
+                document.querySelector('#loginModalCenter').innerHTML = data;
                 addLoginBtnEventListener();
                 //if login error is present existing login partial  replaced by new login partial isnstance
                 //reinitiating the  login on click button
@@ -64,7 +64,8 @@ function loginAction()
             }
         },
         error: (xhr, ajaxOptions, thrownError) => {
-            Console.error(thrownError + "\r \n" + xhr.statusCheck + xhr.responseText);
+            let msg = "\r \n" + xhr.status + xhr.statusText;
+            DisplayDismissibleMessageAlert('warning', 'Error', msg, 'error-placeholder');
         }
     })
 }

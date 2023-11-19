@@ -1,37 +1,104 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<ApplicationUser> SignInManger;
+﻿@using Courses4All.Models;
+@using Microsoft.AspNetCore.Identity
 
+@inject SignInManager<ApplicationUser> SignInManger;
+@model CategoryDetailViewModel;
 
 @{
     ViewData["Title"] = "Home Page";
 }
-@if (SignInManger.IsSignedIn(User))
+@if(SignInManger.IsSignedIn(User))
+{
+    @if (Model.GroupCategoriesByCategory != null)
+    {
+        <main role="main">
+
+            <section class="jumbotron text-center">
+                <div class="container">
+                    <h1 class="jumbotron-heading">Model.GroupCategoriesByCategory</h1>
+                    <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+                    <p>
+                        <a href="#" class="btn btn-primary my-2">Main call to action</a>
+                        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+                    </p>
+                </div>
+            </section>
+
+            <div class="album py-5 bg-light">
+                        @foreach(var categoryGroup in Model.GroupCategoriesByCategory)
+                        {
+                            <div class="container">
+                                <h4></h4>
+                                <div class="row">
+                                <h1>@categoryGroup.Title</h1>
+                                @foreach (var category in categoryGroup.Items)
+                                {
+                                    <div class="col-md-4">
+                                                <div class="card mb-4 box-shadow">
+                                        <img class="card-img-top" data-src="@category.MediaImagePath" alt="Thumbnail [100%x225]" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22208%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20208%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_18be33528ee%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A11pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_18be33528ee%22%3E%3Crect%20width%3D%22208%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2266.93124771118164%22%20y%3D%22117.54000034332276%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
+                                                    <div class="card-body">
+                                                <h1>@category.CategoryItemTitle</h1>
+                                            <p class="card-text">@category.CategoryItemDescription</p>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                <a class="text-dark" asp-controller="Content" asp-action="Index" asp-route-CategoryItemId="@category.CategoryItemId">@category.CategoryItemTitle</a>
+                                                            @* <div class="btn-group">
+                                                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                                            </div>
+                                                            <small class="text-muted">9 mins</small> *@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                     </div>
+                                }
+                                    </div>
+                            </div>
+                        }
+            </div>
+
+        </main>
+    }
+    else
+    {
+        <div class="text-center">
+            <h1 class="display-4">Welcome</h1>
+            <p> You are currently not enrollled to any courses.Please contact Admin.</p>
+        </div>
+    }
+    
+}
+else
 {
     <div class="text-center">
         <h1 class="display-4">PLEASE LOG IN</h1>
     </div>
 }
-else
-{
-    <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    </div>
-}
 
 <div class="modal fade" id="loginModalCenter" tabindex="-1" role="dialog" aria-labelledby="loginModalCenterTitle">
-    <partial name="_UserLoginPartial" />
+    <partial name="_UserLoginPartial" model="new LoginViewModel{Email=string.Empty , Password = string.Empty , RememberMe = false, LoginInvalid = string.Empty}" />
 </div>
 
 <div class="modal fade" id="RegistrationModalCenter" tabindex="-1" role="dialog" aria-labelledby="RegistrationModalCenterTitle">
-    <partial name="_UserRegistrationPartial" />
+    <partial name="_UserRegistrationPartial" model = "new RegisterViewModel{ 
+                                                 Email = string.Empty,
+                                                 Password = string.Empty,
+                                                 ConfirmPassword = string.Empty,
+                                                 FirstName = string.Empty,
+                                                 LastName = string.Empty,
+                                                 Address1 = string.Empty,
+                                                 Address2 = string.Empty,
+                                                 PostCode = string.Empty,
+                                                 PhoneNumber = string.Empty,
+                                                 AcceptUserAgreement = false,
+                                                 RegistrationInValid = string.Empty,
+     }"/>
 </div>
 
 @section Scripts{
 
-    <script src="~/js/user-login.js"></script> 
-    <script src="~/js/user-register.js"></script>
+  
     @{
+        await Html.RenderPartialAsync("_AuthenticationScriptsPartial");
         //before submitting/click thek login field validations are occur with out refreshing the page 
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

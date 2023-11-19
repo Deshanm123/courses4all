@@ -1,0 +1,60 @@
+﻿@* UsercategoryList-index *@
+
+@model IEnumerable<Courses4All.Data.Entities.Category>
+@using Courses4All.Areas.Admin.Models;
+@using Courses4All.Extensions;
+
+<form id="MembersToCategoryForm"  asp-Controller ="UserCategoryController" asp-action="Index">
+    <div class="container" id='error-placeholder'></div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <h4>Category</h4>
+                <select id="CategoryId" name="CategoryId" class="form-control" asp-items="Model.ConvertToSelectList(1)">
+                    <option value="0">--Please choose a Category--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="register-error-placeholder"></div>
+    <div class="container" id="msg-placeholder"></div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-10">
+            <h4>Members</h4>
+            <div class="form-group">
+                <div id="UserCheckListView">
+                    <partial name="_UserListPartialView" model="new UserCategoryListViewModel {CategoryId=0,Users=null,UsersSelectedList=null }; " />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group text-right">
+                <button type="button" id="SaveSelectedUsersBtn" name="SaveSelectedUsersBtn" class="btn btn-outline-info float-right">Save</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+<div id="myPopup" class="popup">
+    <img src="~/images/loading-icon-transparent-background-12.webp" alt="Popup Image">
+</div>
+
+@section Scripts{
+    <script src="~/js/dismissible-alert-message.js"></script>
+    <script src="~/js/user-category.js"></script>
+}

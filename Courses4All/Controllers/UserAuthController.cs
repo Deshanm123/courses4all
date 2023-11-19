@@ -4,6 +4,8 @@ using Courses4All.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 
 namespace Courses4All.Controllers
@@ -36,10 +38,11 @@ namespace Courses4All.Controllers
                 {
                    loginViewModel.LoginInvalid = "";
                 }
-                else
-                {
-                   ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-                }
+                //if(!loginResult.Succeeded)
+                //{
+                   AddErrorsToModelState(loginResult);  
+                    //ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+                //}
             }
             return PartialView("_UserLoginPartial",loginViewModel);
 
@@ -89,12 +92,29 @@ namespace Courses4All.Controllers
                     await _signInManager.SignInAsync(newUser, isPersistent: false);
                     return PartialView("_UserRegistrationPartial", registerViewModel);
                 }
-                ModelState.AddModelError("", "Registration Attempt Failed");
+                 AddErrorsToModelState(result);
             }
+           // ModelState.AddModelError(string.Empty, "Registration Attempt Failed");
             return PartialView("_UserRegistrationPartial", registerViewModel);
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<bool> IsUserRegistered(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return false;
+            }
+            bool res = await _context.Users.AnyAsync(user => user.Email.ToLower() == email.ToLower());
+            return res;   
+        }
 
-
+        private void AddErrorsToModelState(IdentityResult result)
+        {
+            foreach( var error in result.Errors){
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+        }
     }
 }

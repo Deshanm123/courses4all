@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\dismissible-alert-message.js" />
     <Content Remove="wwwroot\js\user-register.js" />
   </ItemGroup>
 
@@ -25,10 +26,10 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\js\dismissible-alert-message.js" />
     <None Include="wwwroot\js\user-register.js" />
   </ItemGroup>
 
